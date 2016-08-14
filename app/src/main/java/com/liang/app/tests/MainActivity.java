@@ -1,20 +1,28 @@
 package com.liang.app.tests;
 
+import android.app.Fragment;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.LogPrinter;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
+    private ServiceConnection mServiceConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_print_looper_message:
                 printLooperMessage();
+                break;
+            case R.id.btn_bind_service:
+                bindMyService();
+                break;
+            case R.id.btn_start_service:
+                startService();
                 break;
         }
     }
@@ -72,5 +86,43 @@ public class MainActivity extends AppCompatActivity {
     private void printLooperMessage() {
         Looper.getMainLooper().setMessageLogging(new LogPrinter(Log.DEBUG, "looper"));
     }
-    
+
+    private void bindMyService() {
+        if (mServiceConnection != null) {
+            Toast.makeText(getApplicationContext(), "服务已经绑定了", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mServiceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                Log.d("MyService", "onServiceConnected");
+                try {
+                    IMyService.Stub.asInterface(service).hello();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                Log.d("MyService", "onServiceDisconnected");
+            }
+        };
+
+        bindService(new Intent(this, MyService.class), mServiceConnection, BIND_AUTO_CREATE);
+    }
+
+    private void startService() {
+        startService(new Intent(this, MyService.class));
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mServiceConnection != null) {
+            unbindService(mServiceConnection);
+        }
+
+        super.onDestroy();
+    }
 }

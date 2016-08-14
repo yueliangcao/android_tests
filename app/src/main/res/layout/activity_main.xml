@@ -30,4 +30,18 @@
         android:onClick="onClick"
         android:layout_height="wrap_content"
         android:text="print_looper_message" />
+
+    <Button
+        android:id="@+id/btn_bind_service"
+        android:layout_width="match_parent"
+        android:onClick="onClick"
+        android:layout_height="wrap_content"
+        android:text="bind_service" />
+
+    <Button
+        android:id="@+id/btn_start_service"
+        android:layout_width="match_parent"
+        android:onClick="onClick"
+        android:layout_height="wrap_content"
+        android:text="start_service" />
 </LinearLayout>
