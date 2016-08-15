@@ -1,6 +1,5 @@
 package com.liang.app.tests;
 
-import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -14,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.LogPrinter;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
