@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 public class MyContentProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
+
         return false;
     }
 
@@ -42,6 +43,4 @@ public class MyContentProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         return 0;
     }
-
-
 }

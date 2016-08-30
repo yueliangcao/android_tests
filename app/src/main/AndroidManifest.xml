@@ -24,6 +24,7 @@
             android:process=":my_service" />
 
         <provider
+            android:label=""
             android:name=".MyContentProvider"
             android:authorities="com.liang.app.tests.MyContentProvider">
 

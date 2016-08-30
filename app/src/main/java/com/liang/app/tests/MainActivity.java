@@ -3,6 +3,7 @@ package com.liang.app.tests;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_start_service:
                 startService();
+                break;
+            case R.id.btn_content_provider_query:
+                contentProviderQuery();
                 break;
         }
     }
@@ -113,6 +117,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void startService() {
         startService(new Intent(this, MyService.class));
+    }
+
+    private void contentProviderQuery() {
+        getContentResolver().query(Uri.parse("content://com.liang.app.tests.MyContentProvider"), null, null, null, null);
     }
 
     @Override

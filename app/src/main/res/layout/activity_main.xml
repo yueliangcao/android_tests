@@ -43,4 +43,12 @@
         android:onClick="onClick"
         android:layout_height="wrap_content"
         android:text="start_service" />
+
+    <Button
+        android:id="@+id/btn_content_provider_query"
+        android:layout_width="match_parent"
+        android:onClick="onClick"
+        android:layout_height="wrap_content"
+        android:text="content_provider_query" />
+
 </LinearLayout>
